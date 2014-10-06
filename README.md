@@ -19,10 +19,15 @@ www.imyy.org
 3. 默认数使用的 MongoDB 服务器地址为 `mongodb://localhost/imooc`
 
 #### 各个模块路由地址
+
  >**首页**：[http://localhost:3000/](http://localhost:3000/)
+
  >**详细页面**：[http://localhost:3000/movie/:id](http://localhost:3000/movie/:id)
+
  >**后台列表页**：[http://localhost:3000/admin/list](http://localhost:3000/admin/list)
+
  >**后台添加页**：[http://localhost:3000/admin/movie](http://localhost:3000/admin/movie)
+
  >**后台编辑页**：[http://localhost:3000/admin/update/:id](http://localhost:3000/admin/update/:id)
 
 --------------------------
