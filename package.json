@@ -4,6 +4,7 @@
   "description": "node.js+express+jade+mongodb",
   "main": "app.js",
   "dependencies": {
+    "bcrypt": "^0.8.0",
     "body-parser": "^1.9.0",
     "express": "^4.9.5",
     "grunt": "^0.4.5",
