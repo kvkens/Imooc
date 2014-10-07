@@ -12,9 +12,18 @@ var User = require("./models/user");
 app.set("views", "./views/pages");
 app.set("view engine", "jade");
 //app.use(express.bodyParser());
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var session = require('express-session'); //如果要使用session，需要单独包含这个模块
+var cookieParser = require('cookie-parser'); //如果要使用cookie，需要显式包含这个模块
 app.use(bodyParser.urlencoded({
 	extended: true
+}));
+app.use(cookieParser());
+app.use(session({
+	name : "kvkens",
+	secret: "imooc",
+	resave: false,
+	saveUninitialized: false
 }));
 app.use(express.static(path.join(__dirname, "./public")));
 app.locals.moment = require("moment");
@@ -24,6 +33,7 @@ console.log("imooc started on port " + port);
 
 // index page
 app.get("/", function(req, res) {
+	console.log(req.session.user);
 	Movie.fetch(function(err, movies) {
 		if (err) {
 			console.log(err);
@@ -204,6 +214,7 @@ app.post("/user/signin", function(req, res) {
 				console.log(err);
 			}
 			if (isMatch) {
+				req.session.user = user;
 				return res.redirect("/admin/userlist");
 			} else {
 				return res.redirect("/");
