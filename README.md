@@ -2,16 +2,17 @@ Imooc Movie Demo
 www.imyy.org
 =====
 
-慕课网bootstrap+node.js+express+jade+mongodb打造下一代web应用程序。
+####慕课网bootstrap+node.js+express+jade+mongodb打造下一代web应用程序。
 
 =====
 ###架构
- - 前端：bootstrap3.2.0、jQuery 2.1.1 `后面会采用angular做为前端MVC`
- - 后端：node.js、express、jade、mongoose
- - 数据库：mongoDB
+ - 自动化流程：grunt、grunt-concurrent、grunt-contrib-watch、grunt-nodemon
+ - 前端：Bootstrap、jQuery  `后面会采用angular做为前端MVC`
+ - 后端：node.js、express、jade、moment、underscore、mongoose、bcrypt、cookie-parser、express-session
+ - 数据库：MongoDB
 
 
-------------------------------------
+--------------------------
 ### 本地开发和运行
 
 1. 安装 [nodejs](http://nodejs.org) 环境和 [npm](https://www.npmjs.org)，具体方法请自行参考其官网文档。
