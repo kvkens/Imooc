@@ -126,7 +126,18 @@ app.get("/admin/list", function(req, res) {
 		})
 	})
 });
-
+// user list page
+app.get("/admin/userlist", function(req, res) {
+	User.fetch(function(err,users){
+		if(err){
+			console.log(err)
+		}
+		res.render('userlist',{
+			title:'imooc 管理员列表',
+			users:users
+		})
+	})
+});
 //list delete movie
 app.delete("/admin/list",function(req,res){
 	var id = req.query.id;
@@ -143,15 +154,24 @@ app.delete("/admin/list",function(req,res){
 var bcrypt = require("bcrypt");
 //signup
 app.post("/user/signup",function(req,res){
-
 	var _user = req.body.user;
 	//var _user = req.params.user;
 	//var _user = req.query.user;
-	var user = new User(_user);
-	user.save(function(err,user){
+	User.findOne({name:_user.name},function(err,user){
+		console.log(user);
 		if(err){
 			console.log(err);
 		}
-		res.redirect("/");
+		if(user){
+			return res.redirect("/");
+		}else{
+			var user = new User(_user);
+			user.save(function(err,user){
+				if(err){
+					console.log(err);
+				}
+				res.redirect("/admin/userlist");
+			});
+		}
 	});
 });

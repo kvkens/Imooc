@@ -4,26 +4,20 @@ block content
 	.container
 		.row(style="margin-bottom:70px")
 			.panel.panel-default
-				.panel-heading 电影详情信息
+				.panel-heading 注册用户信息
 				
 				table.table.table-hover.table-bordered
 					thead
 						tr
-							th 电影名字
-							th 导演
-							th 国家
-							th 上映年份
-							th 录入时间
+							th 登录名
+							th 注册时间
 							th 查看
 							th 更新
 							th 删除
 					tbody
-						each item in movies
+						each item in users
 							tr(class="item-id-#{item._id}")
-								td #{item.title}
-								td #{item.doctor}
-								td #{item.country}
-								td #{item.year}
+								td #{item.name}
 								td #{moment(item.meta.updateAt).format('YYYY-MM-DD HH:mm:ss')}
 								td: a.btn.btn-info.btn-xs(target="_blank",href="../movie/#{item._id}") 查看
 								td: a.btn.btn-success.btn-xs(target="_blank",href="../admin/update/#{item._id}") 修改
