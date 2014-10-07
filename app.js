@@ -8,6 +8,7 @@ var app = express();
 mongoose.connect("mongodb://localhost/imooc");
 var _ = require("underscore");
 var Movie = require("./models/movie");
+var User = require("./models/user");
 app.set("views", "./views/pages");
 app.set("view engine", "jade");
 //app.use(express.bodyParser());
@@ -78,7 +79,6 @@ app.post("/admin/movie/new",function(req,res){
 	console.log(id);
 	var movieObj = req.body.movie;
 	var _movie;
-	console.log(movieObj);
 	if(id !== "undefined"){
 		Movie.findById(id,function(err,movie){
 			if(err){
@@ -137,7 +137,21 @@ app.delete("/admin/list",function(req,res){
 			}else{
 				res.json({success:1});
 			}
-			
 		});
 	}
+});
+var bcrypt = require("bcrypt");
+//signup
+app.post("/user/signup",function(req,res){
+
+	var _user = req.body.user;
+	//var _user = req.params.user;
+	//var _user = req.query.user;
+	var user = new User(_user);
+	user.save(function(err,user){
+		if(err){
+			console.log(err);
+		}
+		res.redirect("/");
+	});
 });
