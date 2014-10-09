@@ -15,6 +15,7 @@ app.set("view engine", "jade");
 var bodyParser = require('body-parser');
 var session = require('express-session'); //如果要使用session，需要单独包含这个模块
 var cookieParser = require('cookie-parser'); //如果要使用cookie，需要显式包含这个模块
+var bcrypt = require("bcrypt");//bcrypt加密引用
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -167,7 +168,7 @@ app.delete("/admin/list", function(req, res) {
 		});
 	}
 });
-var bcrypt = require("bcrypt");
+
 //signup
 app.post("/user/signup", function(req, res) {
 	var _user = req.body.user;
