@@ -4,18 +4,18 @@ var path = require("path");
 var mongoose = require("mongoose");
 var port = process.env.PORT || 3000;
 var app = express();
-
-mongoose.connect("mongodb://localhost/imooc");
+var dbUrl = "mongodb://localhost/imooc";
+mongoose.connect(dbUrl);
 var _ = require("underscore");
 var Movie = require("./models/movie");
 var User = require("./models/user");
 app.set("views", "./views/pages");
 app.set("view engine", "jade");
-//app.use(express.bodyParser());
 var bodyParser = require('body-parser');
 var session = require('express-session'); //如果要使用session，需要单独包含这个模块
 var cookieParser = require('cookie-parser'); //如果要使用cookie，需要显式包含这个模块
 var bcrypt = require("bcrypt");//bcrypt加密引用
+var mongoStore = require("connect-mongo")(session);//express4 的写法详见参考connect-mongo API
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -24,7 +24,11 @@ app.use(session({
 	name : "kvkens",
 	secret: "imooc",
 	resave: false,
-	saveUninitialized: false
+	saveUninitialized: false,
+	store : new mongoStore({
+		url : dbUrl,
+		collection : "sessions"
+	})
 }));
 app.use(express.static(path.join(__dirname, "./public")));
 app.locals.moment = require("moment");
