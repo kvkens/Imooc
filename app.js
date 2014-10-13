@@ -39,6 +39,10 @@ console.log("imooc started on port " + port);
 // index page
 app.get("/", function(req, res) {
 	console.log(req.session.user);
+	var _user = req.session.user;
+	if(_user){
+		app.locals.user = _user;
+	}
 	Movie.fetch(function(err, movies) {
 		if (err) {
 			console.log(err);
@@ -220,10 +224,17 @@ app.post("/user/signin", function(req, res) {
 			}
 			if (isMatch) {
 				req.session.user = user;
-				return res.redirect("/admin/userlist");
+				return res.redirect("/");
 			} else {
 				return res.redirect("/");
 			}
 		});
 	});
+});
+
+//logout
+app.get("/logout", function(req, res) {
+	delete req.session.user;
+	delete app.locals.user;
+	res.redirect("/");
 });
