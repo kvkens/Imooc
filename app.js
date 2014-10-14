@@ -14,20 +14,20 @@ app.set("view engine", "jade");
 var bodyParser = require('body-parser');
 var session = require('express-session'); //如果要使用session，需要单独包含这个模块
 var cookieParser = require('cookie-parser'); //如果要使用cookie，需要显式包含这个模块
-var bcrypt = require("bcrypt");//bcrypt加密引用
-var mongoStore = require("connect-mongo")(session);//express4 的写法详见参考connect-mongo API
+var bcrypt = require("bcrypt"); //bcrypt加密引用
+var mongoStore = require("connect-mongo")(session); //express4 的写法详见参考connect-mongo API
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
 app.use(cookieParser());
 app.use(session({
-	name : "kvkens",
+	name: "kvkens",
 	secret: "imooc",
 	resave: false,
 	saveUninitialized: false,
-	store : new mongoStore({
-		url : dbUrl,
-		collection : "sessions"
+	store: new mongoStore({
+		url: dbUrl,
+		collection: "sessions"
 	})
 }));
 app.use(express.static(path.join(__dirname, "./public")));
@@ -36,9 +36,9 @@ app.listen(port);
 
 console.log("imooc started on port " + port);
 
-app.use(function(req, res,next){
+app.use(function(req, res, next) {
 	var _user = req.session.user;
-	if(_user){
+	if (_user) {
 		app.locals.user = _user;
 	}
 	return next();
