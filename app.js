@@ -27,6 +27,7 @@ app.use(session({
 	saveUninitialized: false,
 	store: new mongoStore({
 		url: dbUrl,
+		auto_reconnect: true,//issue 推荐解决方法
 		collection: "sessions"
 	})
 }));
