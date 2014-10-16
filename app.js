@@ -14,6 +14,7 @@ var session = require('express-session'); //如果要使用session，需要单�
 var cookieParser = require('cookie-parser'); //如果要使用cookie，需要显式包含这个模块
 var bcrypt = require("bcrypt"); //bcrypt加密引用
 var mongoStore = require("connect-mongo")(session); //express4 的写法详见参考connect-mongo API
+var logger = require('morgan');
 app.use(bodyParser.urlencoded({
 	extended: true
 }));
@@ -29,6 +30,14 @@ app.use(session({
 		collection: "sessions"
 	})
 }));
+
+if("development" === app.get("env")){
+	app.set("showStackError",true);
+	app.use(logger(":method :url :status"));
+	app.locals.pretty = true;
+	mongoose.set("debug",true);
+}
+
 require("./config/routes")(app);
 app.use(express.static(path.join(__dirname, "./public")));
 app.locals.moment = require("moment");
